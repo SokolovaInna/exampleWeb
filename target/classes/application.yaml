@@ -1,0 +1,40 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /api
+  error:
+    include-message: ALWAYS
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/test?reWriteBatchedInserts=true&prepareThreshold=0}
+    username: ${DB_user:postgres}
+    password: ${DB_password:admin@123}
+
+    liquibase:
+      enabled: true
+      drop-first: false
+      change-log: classpath:/db/changelog/db.changelog-master.yaml
+      default-schema: public
+
+    jpa:
+      database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: "admin@123"
+      database: 1
+
+
+  main:
+    allow-bean-definition-overriding: true
+
+auth:
+  secret: YH46tGL9hKzsVnfrTBaRX2dSJCjmD53bxvD2uPjQX4HfBYTA76cVskaFmW9wdbRM
+  softTtl: 1h
+  hardTtl: 3d
+  refreshAfter: 10m
+
